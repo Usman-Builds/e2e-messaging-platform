@@ -1,0 +1,81 @@
+app/
+│
+├── layout.tsx                 # Root layout (theme, providers)
+├── page.tsx                   # Redirect → /chats
+│
+├── chats/
+│   ├── layout.tsx             # Chat app shell (sidebar + main)
+│   ├── page.tsx               # Empty state (select a chat)
+│   └── [chatId]/
+│       └── page.tsx           # Individual chat screen
+│
+├── calls/
+│   └── page.tsx               # Call history (mock)
+│
+├── settings/
+│   └── page.tsx               # Profile & settings
+│
+components/
+│
+├── layout/
+│   ├── Header.tsx             # App header (title, theme toggle)
+│   ├── Sidebar.tsx            # Left panel container
+│   └── ChatLayout.tsx         # Sidebar + chat area wrapper
+│
+├── contacts/
+│   ├── ContactList.tsx        # Contact list
+│   ├── ContactItem.tsx        # Single contact row
+│   └── ContactSearch.tsx      # Search input
+│
+├── chat/
+│   ├── ChatHeader.tsx         # User info + call/video buttons
+│   ├── MessageList.tsx        # Scrollable messages
+│   ├── MessageBubble.tsx      # Incoming / outgoing messages
+│   ├── ChatInput.tsx          # Text / emoji / attachments
+│   ├── VoiceRecorder.tsx      # Voice message UI (mock)
+│   └── AttachmentPicker.tsx   # Image upload UI
+│
+├── calls/
+│   ├── CallButton.tsx         # Audio / video call buttons
+│   └── CallModal.tsx          # Calling UI (mock)
+│
+├── ui/
+│   ├── Button.tsx
+│   ├── Card.tsx
+│   ├── Avatar.tsx
+│   └── IconButton.tsx
+│
+├── ThemeToggle/
+│   └── ThemeToggle.tsx
+│
+data/
+│
+├── contacts.ts                # Mock contacts
+├── chats.ts                   # Mock chat threads
+├── messages.ts                # Mock messages
+│
+hooks/
+│
+├── useContacts.ts
+├── useChat.ts
+├── useMessages.ts
+│
+lib/
+│
+├── formatTime.ts
+├── mediaHelpers.ts
+│
+types/
+│
+├── contact.ts
+├── message.ts
+├── chat.ts
+│
+public/
+│
+├── avatars/
+├── images/
+│
+styles/
+│
+└── globals.css
