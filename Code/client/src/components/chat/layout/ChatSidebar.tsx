@@ -2,6 +2,7 @@
 
 import ContactList from '../../../components/chat/ui/ContactList';
 import { useThemeColors } from '../../../hooks/useThemeColors';
+import ChatSidebarHeader from '../ui/ChatSidebarHeader';
 
 export default function ChatSidebar() {
   const colors = useThemeColors();
@@ -11,6 +12,7 @@ export default function ChatSidebar() {
       style={{ borderRight: `1px solid ${colors.borderChat}`, backgroundColor: colors.backgroundAlt }}
       className="w-80 h-full"
     >
+      <ChatSidebarHeader/>
       <ContactList />
     </aside>
   );

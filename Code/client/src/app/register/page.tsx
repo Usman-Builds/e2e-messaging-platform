@@ -9,7 +9,7 @@ const irishGrover = Irish_Grover({
   weight: "400",
 });
 
-export default function LoginPage() {
+export default function RegisterPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen w-screen bg-black text-white px-4 sm:px-6">
       {/* Logo */}
@@ -17,8 +17,13 @@ export default function LoginPage() {
         Privy
       </h1>
 
-      {/* Login Form */}
+      {/* Register Form */}
       <form className="w-full max-w-sm bg-white/5 border border-white/10 rounded-xl p-6 backdrop-blur-md flex flex-col gap-4">
+        <input
+          type="text"
+          placeholder="Name"
+          className="px-4 py-2 rounded-lg bg-white/10 placeholder-white/50 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+        />
         <input
           type="email"
           placeholder="Email"
@@ -33,7 +38,7 @@ export default function LoginPage() {
           type="submit"
           className="px-4 py-2 rounded-lg bg-emerald-500/80 hover:bg-emerald-500 font-semibold text-white"
         >
-          Login
+          Register
         </button>
 
         {/* Google Button */}
@@ -46,12 +51,12 @@ export default function LoginPage() {
         </button>
 
         <p className="text-white/70 text-sm text-center mt-2">
-          Don't have an account?{" "}
+          Already have an account?{" "}
           <Link
-            href="/register"
+            href="/login"
             className="text-emerald-500 hover:text-emerald-400 font-semibold"
           >
-            Register
+            Login
           </Link>
         </p>
       </form>
