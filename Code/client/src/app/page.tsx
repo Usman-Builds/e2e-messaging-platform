@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { FaLock, FaComments, FaUserShield } from "react-icons/fa";
 import { Irish_Grover } from "next/font/google";
+import PublicPageGuard from "../components/guards/PublicGuard";
 
 const irishGrover = Irish_Grover({
   subsets: ["latin"],
@@ -12,6 +13,7 @@ const irishGrover = Irish_Grover({
 
 export default function LandingPage() {
   return (
+    <PublicPageGuard>
     <div
       className="relative w-screen overflow-hidden bg-black text-white"
       style={{ height: "100dvh" }} // fixes mobile viewport
@@ -128,5 +130,6 @@ export default function LandingPage() {
         </div>
       </main>
     </div>
+    </PublicPageGuard>
   );
 }

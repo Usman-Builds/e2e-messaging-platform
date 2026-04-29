@@ -5,5 +5,7 @@ export default function CallsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <CallLayout>{children}</CallLayout>;
+  return <>
+  <CallLayout>{children}</CallLayout>
+  </>
 }

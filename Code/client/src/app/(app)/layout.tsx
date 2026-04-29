@@ -1,3 +1,4 @@
+import AuthGuard from "@/src/components/guards/AuthGuard";
 import AppNav from "@/src/components/layout/AppNav";
 import Header from "@/src/components/layout/Header";
 
@@ -7,6 +8,7 @@ export default function AppLayout({
   children: React.ReactNode;
 }) {
   return (
+    <AuthGuard requireAuth requireUsername>
     <div className="h-screen flex flex-col">
       <Header />
 
@@ -18,5 +20,6 @@ export default function AppLayout({
         {children}
       </div>
     </div>
+    </AuthGuard>
   );
 }

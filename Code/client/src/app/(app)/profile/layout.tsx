@@ -5,5 +5,7 @@ export default function CallsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <ProfileLayout>{children}</ProfileLayout>;
+  return <>
+  <ProfileLayout>{children}</ProfileLayout>
+  </>
 }

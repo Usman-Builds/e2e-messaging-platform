@@ -4,8 +4,12 @@ import { useThemeColors } from "@/src/hooks/useThemeColors";
 import { useState, useRef, useEffect } from "react";
 import { FaEllipsisV, FaUserPlus, FaUsers, FaSignOutAlt } from "react-icons/fa";
 import AddFriendModal from "../../modals/AddFriendModal";
+import { AuthService } from "@/src/services/auth.service";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 export default function ChatSidebarHeader() {
   const colors = useThemeColors();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const [addFriendOpen, setAddFriendOpen] = useState(false);
@@ -76,8 +80,9 @@ export default function ChatSidebarHeader() {
             label="Logout"
             danger
             onClick={() => {
-              setOpen(false);
-              alert("Logout");
+              AuthService.logout();
+              toast.success("Logged out");
+              router.push("/login");
             }}
           />
         </div>
