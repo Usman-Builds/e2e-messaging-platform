@@ -3,7 +3,7 @@ import { IsBoolean, IsOptional, IsString } from 'class-validator';
 export class UpdateUserDto {
   @IsOptional() @IsString() name?: string;
   @IsOptional() @IsString() bio?: string;
-  @IsOptional() @IsString() profilePhoto?: string;
+  @IsOptional() @IsString() avatar?: string;
 
   // permissions
   @IsOptional() @IsBoolean() darkMode?: boolean;

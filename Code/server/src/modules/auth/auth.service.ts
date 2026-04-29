@@ -14,7 +14,9 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  // 🧩 Register
+  // -------------------------
+  // REGISTER
+  // -------------------------
   async register(data: { name: string; email: string; password: string }) {
     const existingEmail = await this.prisma.user.findUnique({
       where: { email: data.email },
@@ -32,18 +34,16 @@ export class AuthService {
         password: hashedPassword,
         provider: 'LOCAL',
         name: data.name,
-
-        darkMode: false,
-        readReciepts: true,
-        onlineStatus: true,
-        groupAdd: true,
+        avatar: null, // optional
       },
     });
 
     return this.generateTokens(user);
   }
 
-  // 🔑 Validate login
+  // -------------------------
+  // LOGIN VALIDATION
+  // -------------------------
   async validateUser(email: string, password: string) {
     const user = await this.prisma.user.findUnique({ where: { email } });
 
@@ -60,12 +60,47 @@ export class AuthService {
     return user;
   }
 
-  // 🚪 Login
   login(user: any) {
     return this.generateTokens(user);
   }
 
-  // 🔐 JWT generator
+  // -------------------------
+  // GOOGLE LOGIN (FIXED)
+  // -------------------------
+  async googleLogin(data: {
+    email: string;
+    name: string;
+    avatar?: string;
+  }) {
+    let user = await this.prisma.user.findUnique({
+      where: { email: data.email },
+    });
+
+    if (!user) {
+      user = await this.prisma.user.create({
+        data: {
+          email: data.email,
+          name: data.name,
+          provider: 'GOOGLE',
+          avatar: data.avatar, // ✅ SAVE IMAGE
+        },
+      });
+    } else {
+      // keep profile synced
+      user = await this.prisma.user.update({
+        where: { email: data.email },
+        data: {
+          name: data.name,
+        },
+      });
+    }
+
+    return this.generateTokens(user);
+  }
+
+  // -------------------------
+  // JWT GENERATION
+  // -------------------------
   generateTokens(user: any) {
     const payload = {
       sub: user.id,
@@ -80,28 +115,10 @@ export class AuthService {
         id: user.id,
         name: user.name,
         email: user.email,
+        avatar: user.avatar, // ✅ IMPORTANT
         provider: user.provider,
         isUsername: user.isUsername,
       },
     };
-  }
-
-  //google auth
-  async googleLogin(data: { email: string; name: string }) {
-    let user = await this.prisma.user.findUnique({
-      where: { email: data.email },
-    });
-
-    if (!user) {
-      user = await this.prisma.user.create({
-        data: {
-          email: data.email,
-          name: data.name,
-          provider: 'GOOGLE',
-        },
-      });
-    }
-
-    return this.generateTokens(user);
   }
 }

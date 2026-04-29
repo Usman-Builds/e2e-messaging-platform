@@ -14,7 +14,7 @@ export class UserService {
         name: true,
         username: true,
         email: true,
-        profilePhoto: true,
+        avatar: true,
         bio: true,
         darkMode: true,
         readReciepts: true,

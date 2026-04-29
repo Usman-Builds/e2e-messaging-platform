@@ -44,7 +44,7 @@ export default function ProfileItem() {
         setBio(user.bio || '');
         setEmail(user.email || '');
         setUsername(user.username || '');
-        setProfilePhoto(user.profilePhoto || '');
+        setProfilePhoto(user.avatar || '');
       } catch (err: any) {
         notify.error(err?.message || 'Failed to load user');
       } finally {
@@ -85,7 +85,7 @@ export default function ProfileItem() {
 
       setProfilePhoto(url);
 
-      await UserService.update({ profilePhoto: url });
+      await UserService.update({ avatar: url });
 
       notify.success('Profile photo updated');
     } catch (err: any) {

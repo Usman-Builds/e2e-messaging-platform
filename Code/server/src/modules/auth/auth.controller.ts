@@ -11,10 +11,13 @@ import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
 import { AuthGuard } from '@nestjs/passport';
-
+import { ConfigService } from '@nestjs/config';
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly config: ConfigService,
+  ) {}
 
   // 👤 Local Register
   @Post('register')
@@ -39,9 +42,7 @@ export class AuthController {
   @UseGuards(AuthGuard('google'))
   async googleCallback(@Req() req, @Res() res) {
     const result = await this.authService.googleLogin(req.user);
-
-    res.redirect(
-      `http://localhost:3000/auth-success?token=${result.accessToken}`,
-    );
+    const frontendUrl = this.config.getOrThrow<string>('FRONTEND_URL');
+    res.redirect(`${frontendUrl}/auth-success?token=${result.accessToken}`);
   }
 }

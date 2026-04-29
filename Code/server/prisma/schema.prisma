@@ -13,7 +13,7 @@ model User {
   name         String
   username     String? @unique
   email        String  @unique
-  profilePhoto String? // URL to profile image (Google avatar or uploaded image)
+  avatar String? // URL to profile image (Google avatar or uploaded image)
   bio          String?
 
   //User-Permissions Related Fields
