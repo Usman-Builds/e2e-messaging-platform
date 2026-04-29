@@ -1,8 +1,16 @@
-import { Controller, Post, Body, UseGuards, Req, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  UseGuards,
+  Res,
+  Req,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthGuard } from '@nestjs/passport';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
@@ -21,17 +29,19 @@ export class AuthController {
     return this.authService.login(user);
   }
 
-  // 🌐 Redirect to Google for OAuth2
   @Get('google')
   @UseGuards(AuthGuard('google'))
-  googleAuth() {
-    return { message: 'Redirecting to Google...' };
+  async googleAuth() {
+    // redirects to Google
   }
 
-  // 🔁 Google OAuth2 callback
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
-  async googleAuthRedirect(@Req() req: any) {
-    return this.authService.validateGoogleUser(req.user);
+  async googleCallback(@Req() req, @Res() res) {
+    const result = await this.authService.googleLogin(req.user);
+
+    res.redirect(
+      `http://localhost:3000/auth-success?token=${result.accessToken}`,
+    );
   }
 }

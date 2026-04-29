@@ -8,27 +8,33 @@ datasource db {
 }
 
 model User {
-  id              Int       @id @default(autoincrement())
-  firstName       String
-  lastName        String
-  email           String    @unique
-  phoneNumber     String?   @unique
-  profilePhoto    String?   // URL to profile image (Google avatar or uploaded image)
-  gender          String?   // 'male', 'female', 'other' — or make it Enum (optional)
-  dateOfBirth     DateTime? // Optional user DOB
+  //User-Related Fields
+  id           Int     @id @default(autoincrement())
+  name         String
+  username     String? @unique
+  email        String  @unique
+  profilePhoto String? // URL to profile image (Google avatar or uploaded image)
+  bio          String?
 
+  //User-Permissions Related Fields
+  darkMode     Boolean @default(false)
+  readReciepts Boolean @default(true)
+  onlineStatus Boolean @default(true)
+  groupAdd     Boolean @default(true)
+
+  //usernameCheck
+  isUsername   Boolean      @default(false)
   // Authentication-related fields
-  password        String?   // Nullable for Google users
-  googleId        String?   @unique // Store Google account ID if authenticated via Google
-  provider        AuthProvider @default(LOCAL) // Tracks login method: LOCAL or GOOGLE
-  refreshToken    String?   // Store latest JWT refresh token if applicable
+  password     String? // Nullable for Google users
+  googleId     String?      @unique // Store Google account ID if authenticated via Google
+  provider     AuthProvider @default(LOCAL) // Tracks login method: LOCAL or GOOGLE
+  refreshToken String? // Store latest JWT refresh token if applicable
 
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum AuthProvider {
   LOCAL
   GOOGLE
 }
-

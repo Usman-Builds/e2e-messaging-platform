@@ -1,27 +1,13 @@
-import { IsEmail, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsOptional, IsString } from 'class-validator';
 
 export class UpdateUserDto {
-  @IsOptional()
-  @IsString()
-  firstName?: string;
+  @IsOptional() @IsString() name?: string;
+  @IsOptional() @IsString() bio?: string;
+  @IsOptional() @IsString() profilePhoto?: string;
 
-  @IsOptional()
-  @IsString()
-  lastName?: string;
-
-  @IsOptional()
-  @IsEmail()
-  email?: string;
-
-  @IsOptional()
-  @IsString()
-  phoneNumber?: string;
-
-  @IsOptional()
-  @IsString()
-  profilePhoto?: string;
-
-  @IsOptional()
-  @IsString()
-  gender?: string;
+  // permissions
+  @IsOptional() @IsBoolean() darkMode?: boolean;
+  @IsOptional() @IsBoolean() readReciepts?: boolean;
+  @IsOptional() @IsBoolean() onlineStatus?: boolean;
+  @IsOptional() @IsBoolean() groupAdd?: boolean;
 }
